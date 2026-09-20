@@ -1,206 +1,748 @@
+/* ==========================================================
+   URBAN STUDIO · Página de descarga
+   Paleta tomada del home de la app:
+   negro #0a0a0a · dorado #d4af37 / #c9a96e · crema #f0ede8
+   (Sin variables CSS: todos los colores van directos)
+   ========================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@600;700&display=swap');
+
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
-body {
-    font-family: Arial, Helvetica, sans-serif;
-    background:
-        radial-gradient(circle at top, #292929 0%, #111111 45%, #050505 100%);
-    color: white;
+html, body {
+    background-color: transparent;
+    color: #f0ede8;
+    font-family: 'Montserrat', sans-serif;
     min-height: 100vh;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-size-adjust: 100%;
 }
 
-.download-page {
+body {
+    line-height: 1.55;
+}
+
+:focus-visible {
+    outline: 2px solid #d4af37;
+    outline-offset: 3px;
+}
+
+.scroll-progress {
+    position: fixed;
+    z-index: 10;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: rgba(255, 255, 255, .08);
+}
+
+.scroll-progress span {
+    display: block;
+    width: 0;
+    height: 100%;
+    background: linear-gradient(90deg, #9d6b2f, #f0d58a, #d4af37);
+    box-shadow: 0 0 12px rgba(212, 175, 55, .8);
+    transition: width .1s linear;
+}
+
+.ambient-light {
+    position: fixed;
+    z-index: 0;
+    width: 260px;
+    height: 260px;
+    border-radius: 50%;
+    pointer-events: none;
+    filter: blur(42px);
+    opacity: .22;
+    mix-blend-mode: screen;
+}
+
+.ambient-light-one {
+    top: 12%;
+    left: -120px;
+    background: #d4af37;
+    animation: drift-one 12s ease-in-out infinite alternate;
+}
+
+.ambient-light-two {
+    right: -130px;
+    bottom: 8%;
+    background: #a65f2a;
+    animation: drift-two 15s ease-in-out infinite alternate;
+}
+
+@keyframes drift-one {
+    to { transform: translate(80px, 100px) scale(1.25); opacity: .34; }
+}
+
+@keyframes drift-two {
+    to { transform: translate(-70px, -120px) scale(1.18); opacity: .3; }
+}
+
+/* ---------- FONDO (misma foto del hero del home) ---------- */
+
+.backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    background-color: #24170f;
+    background-image:
+        radial-gradient(ellipse at 8% 35%, rgba(201, 169, 110, .32) 0%, rgba(110, 61, 28, .18) 28%, transparent 56%),
+        radial-gradient(ellipse at 92% 68%, rgba(212, 175, 55, .25) 0%, rgba(101, 54, 27, .2) 30%, transparent 58%),
+        linear-gradient(to bottom, rgba(20, 10, 5, .38) 0%, rgba(12, 8, 5, .58) 60%, rgba(12, 8, 5, .78) 100%),
+        url('https://images.unsplash.com/photo-1621605815971-fbc98d665033?w=1600');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* ---------- LAYOUT ---------- */
+
+.page {
+    position: relative;
+    z-index: 1;
     min-height: 100vh;
     display: flex;
     justify-content: center;
-    align-items: center;
-    padding: 30px 15px;
+    align-items: flex-start;
+    padding: 48px 16px 48px;
 }
 
 .card {
     width: 100%;
-    max-width: 520px;
-    background: rgba(24, 24, 24, 0.95);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 28px;
-    padding: 40px 30px;
+    max-width: 560px;
+    background: rgba(12, 12, 12, .82);
+    -webkit-backdrop-filter: blur(14px);
+    backdrop-filter: blur(14px);
+    border: 1px solid rgba(212, 175, 55, .4);
+    border-radius: 34px;
+    padding: 46px 40px 34px;
     text-align: center;
-    box-shadow: 0 25px 80px rgba(0, 0, 0, 0.55);
+    box-shadow: 0 30px 90px rgba(0, 0, 0, .65);
+    animation: rise .8s ease both;
+    overflow: hidden;
 }
 
-.logo {
-    width: 78px;
-    height: 78px;
-    margin: 0 auto 20px;
+@keyframes rise {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
+/* ---------- MARCA ---------- */
 
-    border-radius: 22px;
-    background: linear-gradient(135deg, #ffffff, #bdbdbd);
-    color: #111;
-    font-size: 36px;
+.logo-ring {
+    position: relative;
+    width: 156px;
+    height: 156px;
+    margin: 0 auto 30px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: #050505;
+    color: #d4af37;
+    border: 2px solid #d4af37;
+    box-shadow: 0 0 0 8px rgba(212, 175, 55, .12), 0 10px 40px rgba(212, 175, 55, .25);
+    animation: logo-float 5s ease-in-out infinite;
+}
 
-    box-shadow: 0 10px 35px rgba(255, 255, 255, 0.15);
+.logo-ring::after {
+    content: '';
+    position: absolute;
+    inset: -10px;
+    border: 1px solid rgba(212, 175, 55, .28);
+    border-radius: 50%;
+    animation: logo-orbit 8s linear infinite;
+}
+
+@keyframes logo-float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+}
+
+@keyframes logo-orbit {
+    from { transform: rotate(0deg) scale(1); opacity: .3; }
+    50% { transform: rotate(180deg) scale(1.04); opacity: .8; }
+    to { transform: rotate(360deg) scale(1); opacity: .3; }
+}
+
+.logo-fallback {
+    width: 44px;
+    height: 44px;
+}
+
+.logo-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.wordmark {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-weight: 700;
+    font-size: 34px;
+    letter-spacing: 3px;
+    color: #d4af37;
+    line-height: 1;
+    margin-bottom: 32px;
+}
+
+/* Rayita dorada + etiqueta, igual que el hero del home */
+.eyebrow {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    color: #c9a96e;
+    margin-bottom: 16px;
+}
+
+.eyebrow::before {
+    content: '';
+    display: block;
+    width: 56px;
+    height: 1px;
+    margin: 0 auto 22px;
+    background: linear-gradient(90deg, transparent, #c9a96e, transparent);
 }
 
 h1 {
-    font-size: 32px;
-    letter-spacing: 4px;
-    margin-bottom: 10px;
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-weight: 300;
+    font-size: clamp(38px, 8vw, 54px);
+    line-height: 1.05;
+    letter-spacing: 2px;
+    color: #f0ede8;
+    animation: title-glow 4s ease-in-out infinite alternate;
 }
 
-.subtitle {
-    color: #aaa;
-    font-size: 16px;
-    margin-bottom: 20px;
+@keyframes title-glow {
+    from { text-shadow: 0 0 0 rgba(212, 175, 55, 0); }
+    to { text-shadow: 0 0 22px rgba(212, 175, 55, .18); }
 }
 
-.app-info {
+.reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity .75s ease, transform .75s cubic-bezier(.2, .75, .25, 1);
+}
+
+.reveal.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.feature:nth-child(2) { transition-delay: .1s; }
+.feature:nth-child(3) { transition-delay: .2s; }
+
+/* ---------- DATOS (como el recuadro 500+ / 5+ / 4.9) ---------- */
+
+.specs {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    margin: 34px 0;
+    background: rgba(0, 0, 0, .55);
+    border: 1px solid #3a3325;
+}
+
+.specs > div {
     display: flex;
-    justify-content: center;
-    gap: 8px;
-    flex-wrap: wrap;
-
-    color: #888;
-    font-size: 13px;
-    margin-bottom: 28px;
+    flex-direction: column;
+    align-items: center;
+    padding: 16px 8px 14px;
+    transition: background .25s ease, transform .25s ease;
 }
 
-.qr-container {
+.specs > div:hover {
+    background: rgba(212, 175, 55, .09);
+    transform: translateY(-3px);
+}
+
+.specs > div + div {
+    border-left: 1px solid #3a3325;
+}
+
+.specs dd {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 28px;
+    font-weight: 400;
+    line-height: 1.1;
+    color: #c9a96e;
+}
+
+.specs dt {
+    order: 2;
+    margin-top: 6px;
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #9c968a;
+}
+
+/* ---------- DESCARGA ---------- */
+
+.get {
+    margin-bottom: 38px;
+}
+
+.qr-block {
+    margin-bottom: 26px;
+}
+
+.qr-frame {
     display: inline-block;
-    background: white;
     padding: 14px;
+    background: #ffffff;
     border-radius: 18px;
-    margin-bottom: 25px;
+    box-shadow: 0 0 0 1px #d4af37, 0 0 0 7px rgba(212, 175, 55, .16), 0 18px 50px rgba(0, 0, 0, .55);
+    animation: qr-glow 3.5s ease-in-out infinite;
 }
 
-.qr-container p {
-    color: #333;
-    font-size: 12px;
-    margin-top: 8px;
+@keyframes qr-glow {
+    0%, 100% { box-shadow: 0 0 0 1px #d4af37, 0 0 0 7px rgba(212, 175, 55, .16), 0 18px 50px rgba(0, 0, 0, .55); }
+    50% { box-shadow: 0 0 0 1px #f0d58a, 0 0 0 10px rgba(212, 175, 55, .22), 0 22px 60px rgba(212, 175, 55, .16); }
 }
 
-.download-button {
+#qrcode {
+    width: 176px;
+    height: 176px;
+}
+
+#websiteQrcode {
+    width: 112px;
+    height: 112px;
+}
+
+#qrcode img,
+#qrcode canvas,
+#websiteQrcode img,
+#websiteQrcode canvas {
     display: block;
     width: 100%;
-    padding: 17px 20px;
+    height: auto;
+}
 
-    border-radius: 14px;
+.qr-label {
+    margin-top: 20px;
+    font-size: 10px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: #b5ae9f;
+}
 
-    background: white;
-    color: #111;
+.website-qr {
+    margin: 52px 0 0;
+    padding: 22px 18px 20px;
+    border: 1px solid rgba(201, 169, 110, .35);
+    border-radius: 22px;
+    background: linear-gradient(145deg, rgba(201, 169, 110, .12), rgba(0, 0, 0, .25));
+}
 
+.website-kicker {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: #d4af37;
+}
+
+.website-qr h2 {
+    margin-top: 8px;
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 26px;
+    font-weight: 400;
+    letter-spacing: 2px;
+    color: #f0ede8;
+}
+
+.website-text {
+    max-width: 330px;
+    margin: 6px auto 16px;
+    font-size: 12px;
+    color: #b5ae9f;
+}
+
+.website-qr-frame {
+    display: inline-block;
+    padding: 9px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 0 0 1px #d4af37, 0 0 0 4px rgba(212, 175, 55, .14), 0 10px 24px rgba(0, 0, 0, .4);
+}
+
+.website-qr .qr-label {
+    margin-top: 12px;
+    font-size: 9px;
+    letter-spacing: 2px;
+}
+
+/* Botón: mismo degradado dorado del botón "IA Estilo" */
+.download-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    width: 100%;
+    padding: 20px 24px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #c9a96e, #d4af37);
+    color: #0a0a0a;
     text-decoration: none;
-    font-weight: bold;
-    font-size: 16px;
-    letter-spacing: 1px;
-
-    transition: 0.25s ease;
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    box-shadow: 0 12px 34px rgba(212, 175, 55, .3);
+    transition: transform .25s ease, box-shadow .25s ease, opacity .25s ease;
 }
 
 .download-button:hover {
     transform: translateY(-2px);
-    box-shadow: 0 10px 30px rgba(255, 255, 255, 0.15);
+    opacity: .92;
+    box-shadow: 0 18px 44px rgba(212, 175, 55, .42);
+}
+
+.download-button:active {
+    transform: translateY(0);
+}
+
+.floating-download {
+    position: fixed;
+    z-index: 5;
+    right: 24px;
+    bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 13px 19px;
+    border: 1px solid rgba(240, 237, 232, .35);
+    border-radius: 999px;
+    background: linear-gradient(135deg, #c9a96e, #d4af37);
+    color: #0a0a0a;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, .45), 0 0 24px rgba(212, 175, 55, .22);
+    font: 700 10px 'Montserrat', sans-serif;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(18px) scale(.94);
+    transition: opacity .3s ease, visibility .3s ease, transform .3s ease, box-shadow .25s ease;
+}
+
+.floating-download.is-visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0) scale(1);
+    animation: floating-pulse 2.8s ease-in-out 1s infinite;
+}
+
+.floating-download:hover {
+    box-shadow: 0 16px 36px rgba(0, 0, 0, .55), 0 0 30px rgba(212, 175, 55, .4);
+}
+
+.floating-download:active {
+    transform: scale(.96);
+}
+
+@keyframes floating-pulse {
+    0%, 100% { box-shadow: 0 12px 30px rgba(0, 0, 0, .45), 0 0 24px rgba(212, 175, 55, .22); }
+    50% { box-shadow: 0 14px 34px rgba(0, 0, 0, .5), 0 0 32px rgba(212, 175, 55, .42); }
 }
 
 .download-text {
-    color: #888;
-    font-size: 13px;
-    line-height: 1.5;
-    margin: 16px 10px 30px;
+    margin: 18px 12px 0;
+    font-size: 12px;
+    letter-spacing: .5px;
+    color: #a39d90;
 }
 
+/* Aviso para quien entra desde computador o iPhone */
+
+.desktop-hint {
+    display: none;
+    margin-top: 22px;
+    padding: 16px 18px;
+    border: 1px dashed #5a4d2a;
+    border-radius: 14px;
+    font-size: 12px;
+    line-height: 1.7;
+    color: #b5ae9f;
+}
+
+.no-android .desktop-hint {
+    display: block;
+}
+
+.ghost-button {
+    margin-top: 12px;
+    padding: 10px 24px;
+    border-radius: 999px;
+    border: 1px solid #c9a96e;
+    background: transparent;
+    color: #c9a96e;
+    font: 600 10px 'Montserrat', sans-serif;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background .2s ease, color .2s ease;
+}
+
+.ghost-button:hover {
+    background: #c9a96e;
+    color: #0a0a0a;
+}
+
+/* En Android no hace falta el QR: se toca el botón */
+.is-android .qr-block {
+    display: none;
+}
+
+/* ---------- FUNCIONES ---------- */
+
 .features {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
     text-align: left;
+    border-top: 1px solid #3a3325;
 }
 
 .feature {
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 18px;
+    padding: 20px 4px;
+    border-bottom: 1px solid #3a3325;
+    transition: background .3s ease, padding-left .3s ease;
+}
 
-    padding: 15px;
-
-    background: rgba(255, 255, 255, 0.04);
-    border-radius: 15px;
+.feature:hover {
+    background: linear-gradient(90deg, rgba(212, 175, 55, .08), transparent);
+    padding-left: 12px;
 }
 
 .feature-icon {
-    width: 42px;
-    height: 42px;
+    flex: none;
+    width: 48px;
+    height: 48px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    border: 1px solid #c9a96e;
+    background: rgba(201, 169, 110, .1);
+    color: #d4af37;
+    transition: transform .3s ease, background .3s ease, box-shadow .3s ease;
+}
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.feature:hover .feature-icon {
+    transform: rotate(-8deg) scale(1.08);
+    background: rgba(201, 169, 110, .2);
+    box-shadow: 0 0 18px rgba(212, 175, 55, .25);
+}
 
-    background: rgba(255, 255, 255, 0.08);
-    border-radius: 12px;
-
-    font-size: 20px;
+.feature-icon svg {
+    width: 22px;
+    height: 22px;
 }
 
 .feature strong {
-    font-size: 14px;
+    display: block;
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 23px;
+    font-weight: 400;
+    letter-spacing: 1px;
+    color: #f0ede8;
+    line-height: 1.15;
 }
 
 .feature p {
-    color: #888;
+    margin-top: 3px;
     font-size: 12px;
-    margin-top: 4px;
+    color: #a39d90;
 }
+
+/* ---------- INSTRUCCIONES ---------- */
 
 .instructions {
     text-align: left;
-    margin-top: 28px;
-    padding: 20px;
-
-    background: rgba(255, 255, 255, 0.035);
-    border-radius: 18px;
+    margin-top: 42px;
 }
 
 .instructions h2 {
-    font-size: 17px;
-    margin-bottom: 14px;
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-weight: 300;
+    font-size: 34px;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    color: #f0ede8;
+    text-align: center;
+}
+
+.instructions h2::after {
+    content: '';
+    display: block;
+    width: 34px;
+    height: 1px;
+    margin: 18px auto 28px;
+    background: #c9a96e;
+    opacity: .8;
 }
 
 .instructions ol {
-    padding-left: 20px;
-    color: #999;
-    font-size: 13px;
-    line-height: 1.7;
+    list-style: none;
+    counter-reset: paso;
+}
+
+.instructions li {
+    counter-increment: paso;
+    position: relative;
+    padding: 0 0 22px 62px;
+    min-height: 52px;
+    font-size: 13.5px;
+    color: #d6d0c2;
+}
+
+.instructions li::before {
+    content: counter(paso, decimal-leading-zero);
+    position: absolute;
+    left: 0;
+    top: -6px;
+    width: 44px;
+    height: 44px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    border: 1px solid #c9a96e;
+    background: #141414;
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 19px;
+    color: #d4af37;
+}
+
+.instructions li::after {
+    content: '';
+    position: absolute;
+    left: 22px;
+    top: 40px;
+    bottom: 0;
+    width: 1px;
+    background: #4a3f22;
+}
+
+.instructions li:last-child {
+    padding-bottom: 0;
+}
+
+.instructions li:last-child::after {
+    display: none;
 }
 
 .instructions strong {
-    color: white;
+    color: #d4af37;
+    font-weight: 600;
 }
+
+.note {
+    margin-top: 28px;
+    padding: 14px 18px;
+    border-left: 2px solid #d4af37;
+    background: rgba(212, 175, 55, .08);
+    border-radius: 0 12px 12px 0;
+    font-size: 12px;
+    color: #b5ae9f;
+}
+
+/* ---------- PIE ---------- */
 
 footer {
-    margin-top: 30px;
-    color: #555;
-    font-size: 12px;
+    margin-top: 40px;
+    padding-top: 26px;
+    border-top: 1px solid #3a3325;
+    font-size: 11px;
+    letter-spacing: 1px;
+    color: #a39d90;
 }
 
-@media (max-width: 480px) {
+.foot-brand {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-weight: 700;
+    font-size: 20px;
+    letter-spacing: 2px;
+    color: #d4af37;
+    margin-bottom: 6px;
+}
 
-    .card {
-        padding: 30px 20px;
-        border-radius: 22px;
+.copy {
+    margin-top: 14px;
+    font-size: 10px;
+    color: #6f6a5f;
+}
+
+/* ---------- RESPONSIVE ---------- */
+
+@media (max-width: 520px) {
+    .page {
+        padding: 16px 12px 32px;
     }
 
-    h1 {
-        font-size: 26px;
+    .card {
+        padding: 34px 20px 28px;
+        border-radius: 28px;
+    }
+
+    .logo-ring {
+        width: 128px;
+        height: 128px;
+        margin-bottom: 26px;
+    }
+
+    .wordmark {
+        font-size: 28px;
+        margin-bottom: 26px;
+    }
+
+    .specs dd {
+        font-size: 23px;
+    }
+
+    .specs dt {
+        font-size: 8px;
+        letter-spacing: 1.5px;
+    }
+
+    .download-button {
+        padding: 22px 20px;
+        font-size: 12px;
         letter-spacing: 3px;
     }
 
-    .download-page {
-        padding: 15px;
+    .floating-download {
+        right: 16px;
+        bottom: 16px;
+        padding: 12px 16px;
+        font-size: 9px;
     }
+
+    .instructions h2 {
+        font-size: 28px;
+        letter-spacing: 4px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .card { animation: none; }
+    .download-button,
+    .floating-download,
+    .logo-ring,
+    .logo-ring::after,
+    .qr-frame,
+    h1,
+    .ambient-light { transition: none; animation: none; }
+    .reveal { opacity: 1; transform: none; transition: none; }
 }
