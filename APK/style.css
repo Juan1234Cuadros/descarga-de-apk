@@ -1,0 +1,206 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background:
+        radial-gradient(circle at top, #292929 0%, #111111 45%, #050505 100%);
+    color: white;
+    min-height: 100vh;
+}
+
+.download-page {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px 15px;
+}
+
+.card {
+    width: 100%;
+    max-width: 520px;
+    background: rgba(24, 24, 24, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 28px;
+    padding: 40px 30px;
+    text-align: center;
+    box-shadow: 0 25px 80px rgba(0, 0, 0, 0.55);
+}
+
+.logo {
+    width: 78px;
+    height: 78px;
+    margin: 0 auto 20px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 22px;
+    background: linear-gradient(135deg, #ffffff, #bdbdbd);
+    color: #111;
+    font-size: 36px;
+
+    box-shadow: 0 10px 35px rgba(255, 255, 255, 0.15);
+}
+
+h1 {
+    font-size: 32px;
+    letter-spacing: 4px;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    color: #aaa;
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+.app-info {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+
+    color: #888;
+    font-size: 13px;
+    margin-bottom: 28px;
+}
+
+.qr-container {
+    display: inline-block;
+    background: white;
+    padding: 14px;
+    border-radius: 18px;
+    margin-bottom: 25px;
+}
+
+.qr-container p {
+    color: #333;
+    font-size: 12px;
+    margin-top: 8px;
+}
+
+.download-button {
+    display: block;
+    width: 100%;
+    padding: 17px 20px;
+
+    border-radius: 14px;
+
+    background: white;
+    color: #111;
+
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 16px;
+    letter-spacing: 1px;
+
+    transition: 0.25s ease;
+}
+
+.download-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(255, 255, 255, 0.15);
+}
+
+.download-text {
+    color: #888;
+    font-size: 13px;
+    line-height: 1.5;
+    margin: 16px 10px 30px;
+}
+
+.features {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    text-align: left;
+}
+
+.feature {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+
+    padding: 15px;
+
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: 15px;
+}
+
+.feature-icon {
+    width: 42px;
+    height: 42px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+
+    font-size: 20px;
+}
+
+.feature strong {
+    font-size: 14px;
+}
+
+.feature p {
+    color: #888;
+    font-size: 12px;
+    margin-top: 4px;
+}
+
+.instructions {
+    text-align: left;
+    margin-top: 28px;
+    padding: 20px;
+
+    background: rgba(255, 255, 255, 0.035);
+    border-radius: 18px;
+}
+
+.instructions h2 {
+    font-size: 17px;
+    margin-bottom: 14px;
+}
+
+.instructions ol {
+    padding-left: 20px;
+    color: #999;
+    font-size: 13px;
+    line-height: 1.7;
+}
+
+.instructions strong {
+    color: white;
+}
+
+footer {
+    margin-top: 30px;
+    color: #555;
+    font-size: 12px;
+}
+
+@media (max-width: 480px) {
+
+    .card {
+        padding: 30px 20px;
+        border-radius: 22px;
+    }
+
+    h1 {
+        font-size: 26px;
+        letter-spacing: 3px;
+    }
+
+    .download-page {
+        padding: 15px;
+    }
+}

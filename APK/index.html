@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Urban Studio | Descargar App</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Librería para generar QR -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+</head>
+
+<body>
+
+    <main class="download-page">
+
+        <div class="card">
+
+            <div class="logo">
+                <span>✂</span>
+            </div>
+
+            <h1>URBAN STUDIO</h1>
+
+            <p class="subtitle">
+                Lleva tu estilo a otro nivel.
+            </p>
+
+            <div class="app-info">
+                <span>Android</span>
+                <span>•</span>
+                <span>Versión 1.0.0</span>
+                <span>•</span>
+                <span>78.8 MB</span>
+            </div>
+
+            <div class="qr-container">
+                <div id="qrcode"></div>
+                <p>Escanea para descargar</p>
+            </div>
+
+            <a
+                class="download-button"
+                href="https://github.com/dayeison87-coder/URBAN-STUDIO/releases/download/v1.0.0/Urban-Studio-v1.0.0.apk"
+            >
+                ↓ &nbsp; INSTALAR AHORA
+            </a>
+
+            <p class="download-text">
+                Descarga la aplicación oficial de Urban Studio para Android.
+            </p>
+
+            <div class="features">
+
+                <div class="feature">
+                    <div class="feature-icon">📅</div>
+                    <div>
+                        <strong>Reserva tus citas</strong>
+                        <p>Gestiona tus citas de forma rápida.</p>
+                    </div>
+                </div>
+
+                <div class="feature">
+                    <div class="feature-icon">💈</div>
+                    <div>
+                        <strong>Servicios de barbería</strong>
+                        <p>Consulta servicios y profesionales.</p>
+                    </div>
+                </div>
+
+                <div class="feature">
+                    <div class="feature-icon">✨</div>
+                    <div>
+                        <strong>Recomendaciones con IA</strong>
+                        <p>Encuentra estilos que se adapten a ti.</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="instructions">
+
+                <h2>¿Cómo instalar?</h2>
+
+                <ol>
+                    <li>Presiona <strong>Instalar ahora</strong>.</li>
+                    <li>Descarga el archivo APK.</li>
+                    <li>Abre el archivo descargado.</li>
+                    <li>Si Android lo solicita, permite instalar aplicaciones desde esta fuente.</li>
+                    <li>Instala Urban Studio y disfruta de la aplicación.</li>
+                </ol>
+
+            </div>
+
+            <footer>
+                © 2026 Urban Studio
+            </footer>
+
+        </div>
+
+    </main>
+
+    <script>
+        const downloadUrl =
+            "https://github.com/dayeison87-coder/URBAN-STUDIO/releases/download/v1.0.0/Urban-Studio-v1.0.0.apk";
+
+        new QRCode(document.getElementById("qrcode"), {
+            text: downloadUrl,
+            width: 180,
+            height: 180,
+            correctLevel: QRCode.CorrectLevel.H
+        });
+    </script>
+
+</body>
+</html>
